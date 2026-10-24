@@ -1,4 +1,5 @@
 ﻿# git-share
+> Alpha. It works on my machine and a few edge cases are untested. See Notes.
 
 Zip a git repo as it is right now, without committing anything.
 
@@ -73,3 +74,5 @@ This is a safety net, not a guarantee. It only catches obvious filenames, so loo
 
 - A zip with the same name at the repo root is excluded, so the archive never contains itself.
 - Untracked files are included unless they're ignored. If you don't want one in the zip, ignore it.
+
+License: not decided yet.
