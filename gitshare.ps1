@@ -14,7 +14,7 @@
     A safety net refuses to build the archive if it would contain files that
     look like secrets (.env, private keys, database dumps, session files...).
 
-    Works in any git repository. Installed globally as `git share` by install.ps1.
+    Works in any git repository. Installed globally as `git share` by installer.ps1.
 
 .PARAMETER OutDir
     Folder where the zip is written. Defaults to the repository root.

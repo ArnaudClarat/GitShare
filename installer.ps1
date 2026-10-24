@@ -3,7 +3,7 @@
     Installs (or removes) the global `git share` command.
 
 .DESCRIPTION
-    1. Copies gitshare.ps1 to %LOCALAPPDATA%\gitshare\.
+    1. Copies gitshare.ps1 to %LOCALAPPDATA%\git-share\.
     2. Registers a global git alias, so `git share` works in every repository.
 
     The alias launches the script with -ExecutionPolicy Bypass for that single
@@ -45,7 +45,7 @@ if ($Uninstall) {
 
 $source = Join-Path $PSScriptRoot 'gitshare.ps1'
 if (-not (Test-Path $source)) {
-    throw "git-share.ps1 not found next to the installer ($PSScriptRoot)."
+    throw "gitshare.ps1 not found next to the installer ($PSScriptRoot)."
 }
 
 New-Item -ItemType Directory -Force $installDir | Out-Null
