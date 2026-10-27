@@ -13,12 +13,16 @@ Before writing the archive, it checks the file list for things that look like se
 
 ## Requirements
 
-- Windows
-- Git for Windows
-- PowerShell 5.1 or 7 (7 is used if available)
+- **Windows:**
+  - Git for Windows
+  - PowerShell 5.1 or 7 (7 is used if available)
+- **Linux / Unix-like:** 
+  - Git
+  - Bash
 
 ## Install
 
+### On Windows (PowerShell)
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\installer.ps1
 ```
@@ -33,6 +37,20 @@ To remove everything:
 powershell -ExecutionPolicy Bypass -File .\installer.ps1 -Uninstall
 ```
 
+### On Linux (Bash)
+```bash
+bash installer.sh
+```
+
+This copies the script to ~/.local/share/git-share/ and sets a global git alias. No sudo rights and nothing added to PATH.
+
+Running the installer again updates the installed copy.
+
+To remove everything:
+```bash
+bash installer.sh --uninstall
+```
+
 ## Usage
 
 From anywhere inside a repo:
@@ -45,16 +63,25 @@ This writes `<repo folder name>.zip` at the repo root and prints the path, file 
 
 ### Options
 
-| Option | Description |
-| --- | --- |
-| `-OutDir` | Where to write the zip. Defaults to the repo root. |
-| `-Name` | Zip name, without extension. Defaults to the repo folder name. |
-| `-Deny` | Extra regexes for paths that must never be archived. Matched against repo-relative paths with `/` separators. |
+| Option (Windows) | Option (Linux) | Description |
+| --- | --- | --- |
+| `-OutDir` | `--out-dir` | Where to write the zip. Defaults to the repo root. |
+| `-Name` | `--name` | Zip name, without extension. Defaults to the repo folder name. |
+| `-Deny` | `--deny` | Extra regexes for paths that must never be archived. Matched against repo-relative paths with `/` separators. |
+
+**Examples (Windows):**
+```powershell
+git share -OutDir C:\Temp -Name review
+git share -Deny '^config/' '\.sqlite$'
 
 ```
-git share -OutDir C:\Temp -Name review
-git share -Deny '^config/', '\.sqlite$'
+
+**Examples (Linux):**
+```bash
+git share --out-dir /tmp --name review
+git share --deny '^config/' --deny '\.sqlite$'
 ```
+
 
 ## Secret check
 
@@ -66,7 +93,7 @@ If the snapshot contains a file matching one of these patterns, nothing is archi
 - `session.json`
 - `secret.*` / `secrets.*` with a `json`, `yml`, `yaml` or `toml` extension
 
-Fix it by adding the file to `.gitignore` and running the command again. Use `-Deny` to add your own patterns.
+Fix it by adding the file to `.gitignore` and running the command again. Use `-Deny` (Windows) or `--deny` (Linux) to add your own patterns.
 
 This is a safety net, not a guarantee. It only catches obvious filenames, so look at what you're sending.
 
