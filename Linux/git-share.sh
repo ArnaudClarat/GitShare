@@ -36,9 +36,9 @@ fi
 ZIP_PATH="$OUT_DIR/$NAME.zip"
 
 # Temporary index: allows snapshotting untracked files without touching the real index
-export GIT_INDEX_FILE=$(mktemp)
-rm -f "$GIT_INDEX_FILE"
+export GIT_INDEX_FILE="$(mktemp)"
 trap 'rm -f "$GIT_INDEX_FILE"' EXIT
+git read-tree --empty
 
 # Stage everything in the temporary index, excluding a previous zip of the same name
 git -c core.safecrlf=false add -A -- . ":(exclude,glob)**/$NAME.zip"
