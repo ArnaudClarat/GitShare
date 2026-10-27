@@ -24,7 +24,7 @@ Before writing the archive, it checks the file list for things that look like se
 
 ### On Windows (PowerShell)
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\installer.ps1
+powershell -ExecutionPolicy Bypass -File .\Windows\installer.ps1
 ```
 
 This copies the script to `%LOCALAPPDATA%\git-share\` and sets a global git alias. No admin rights, nothing added to `PATH`, and your execution policy is left alone (the alias bypasses it for its own process only).
@@ -34,12 +34,12 @@ Running the installer again updates the installed copy.
 To remove everything:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\installer.ps1 -Uninstall
+powershell -ExecutionPolicy Bypass -File .\Windows\installer.ps1 -Uninstall
 ```
 
 ### On Linux (Bash)
 ```bash
-bash installer.sh
+bash Linux/installer.sh
 ```
 
 This copies the script to ~/.local/share/git-share/ and sets a global git alias. No sudo rights and nothing added to PATH.
@@ -48,7 +48,7 @@ Running the installer again updates the installed copy.
 
 To remove everything:
 ```bash
-bash installer.sh --uninstall
+bash Linux/installer.sh --uninstall
 ```
 
 ## Usage
