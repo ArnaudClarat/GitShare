@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Built-in patterns for files that must never be shared (case-insensitive regex)
-DEFAULT_DENY='(^|/)\.env(\.(?!example$|sample$|template$)[^/]+)?$|\.(pem|key|pfx|p12|dump)$|(^|/)id_(rsa|ed25519|ecdsa)$|(^|/)session\.json$|(^|/)secrets?\.(json|ya?ml|toml)$'
+DEFAULT_DENY='(^|/)\.env$|(^|/)\.env\..+|\.(pem|key|pfx|p12|dump)$|(^|/)id_(rsa|ed25519|ecdsa)$|(^|/)session\.json$|(^|/)secrets?\.(json|ya?ml|toml)$'
 
 OUT_DIR=""
 NAME=""
@@ -49,7 +49,7 @@ PATTERN="$DEFAULT_DENY$EXTRA_DENY"
 
 # Safety net: check for sensitive files
 FILES=$(git -c core.quotepath=off ls-tree -r --name-only "$TREE")
-LEAKS=$(echo "$FILES" | grep -P "$PATTERN" || true)
+LEAKS=$(echo "$FILES" | grep -E "$PATTERN" || true)
 
 if [ -n "$LEAKS" ]; then
     echo "Refusing to archive sensitive-looking files:" >&2
