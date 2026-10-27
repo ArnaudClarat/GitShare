@@ -49,7 +49,7 @@ PATTERN="$DEFAULT_DENY$EXTRA_DENY"
 
 # Safety net: check for sensitive files
 FILES=$(git -c core.quotepath=off ls-tree -r --name-only "$TREE")
-LEAKS=$(echo "$FILES" | grep -E "$PATTERN" || true)
+LEAKS=$(echo "$FILES" | grep -P "$PATTERN" || true)
 
 if [ -n "$LEAKS" ]; then
     echo "Refusing to archive sensitive-looking files:" >&2
